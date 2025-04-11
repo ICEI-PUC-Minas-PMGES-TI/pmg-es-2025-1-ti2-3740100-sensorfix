@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Movimentação de Depósitos</title>
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+    <header>
+        <div class="logo">
+          <img src="img/Logo.png" alt="SensorFix" />
+          
+        </div>
+      
+        <nav class="nav-links">
+          <a href="#">Home</a>
+          <a href="#">Produção</a>
+          <a href="#">Estoque</a>
+          <a href="#">Manutenção</a>
+          <a href="#" class="active">Movimentação</a>
+        </nav>
+      
+        <div class="user-icons">
+          <button title="Usuário">👤</button>
+          <button title="Sair">🔓</button>
+        </div>
+      </header>
+
+  <div class="container">
+    <aside class="sidebar">
+      <nav>        
+          <li>Ativação</li>
+          <li>Ativo</li>
+          <li>Danificado</li>
+          <li>Estoque</li>
+          <li>Manutenção</li>
+        </ul>
+      </nav>
+    </aside>
+
+    <main>
+      <section class="filters">
+        <label>
+          Item
+          <input type="item" id="" />
+        </label>
+        <label>
+          Depósito
+          <select id="filter-type">
+            <option value="">Todos</option>
+            <option value="ativacao">Ativação</option>
+            <option value="ativo">Ativo</option>
+            <option value="danificado">Danificado</option>
+            <option value="estoque">Estoque</option>
+            <option value="manutencao">Manutenção</option>
+          </select>
+        </label>
+        <label>
+          Período
+          <input type="date" id="filter-date" />
+        </label>
+       
+        <button onclick="">Nova movimentação</button>
+      </section>
+
+      <section class="table-container">
+        <table id="transactions-table">
+          <thead>
+            <tr>
+              <th>Data</th>
+              <th>Descrição</th>
+              <th>Tipo</th>
+              <th>Valor</th>
+            </tr>
+          </thead>
+          <tbody>
+            <!-- Dados inseridos via JS -->
+          </tbody>
+        </table>
+      </section>
+    </main>
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>
