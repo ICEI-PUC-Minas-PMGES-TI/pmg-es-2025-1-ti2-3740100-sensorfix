@@ -4,6 +4,10 @@ import Header from "./components/Header";
 import Footer from "./components/Footer";
 import Home from "./pages/Home.jsx";
 import Producao from "./pages/Producao.jsx";
+import Estoque from './pages/Estoque.jsx';
+import Manutencao from './pages/Manutencao.jsx';
+import EntradaInsumos from './pages/GestaoDeEstoque/EntradaInsumos.jsx';
+import FastInOut from './pages/GestaoDeEstoque/FastInOut.jsx';
 
 export default function App() {
   const [theme, setTheme] = useState(getPreferredTheme());
@@ -31,6 +35,10 @@ export default function App() {
           <Routes>
             <Route path="/" element={<Home />} />
             <Route path="/producao" element={<Producao />} />
+            <Route path="/estoque" element={<Estoque />} />
+            <Route path="/estoque/entradaInsumos" element={<EntradaInsumos />} />
+            <Route path="/estoque/fastInOut" element={<FastInOut />} />
+            <Route path="/manutencao" element={<Manutencao />} />
           </Routes>
         </div>
         <Footer />
