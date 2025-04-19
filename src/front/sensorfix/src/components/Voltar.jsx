@@ -15,7 +15,7 @@ const Voltar = ({ label = "Voltar" }) => {
   };
 
   return (
-    <div className="d-flex  justify-content-start position-relative z-3 ms-auto">
+    <div className="my-1 d-flex  justify-content-start position-relative z-3 ms-auto">
       <button
         onClick={handleBack}
         className="btn btn-outline-dark mt-1 btn-sm d-flex align-items-center gap-2 shadow-sm rounded-pill px-3 py-2"

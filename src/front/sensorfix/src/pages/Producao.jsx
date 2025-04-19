@@ -5,18 +5,38 @@ import { FaSave } from "react-icons/fa";
 import { HiMiniXMark } from "react-icons/hi2";
 import Select from "react-select";
 
-const DemandaAberta = () => {
+
+
+const ItemDemanda = ({ demanda, onClick }) => {
+  return (
+    <div className="card mb-2" onClick={() => onClick(demanda)} style={{ cursor: "pointer" }}>
+      <div className="card-body text-start">
+        <div className="form-check">
+          <input className="form-check-input" type="checkbox" role="switch" id={`switch-${demanda.id}`} />
+          <h5 className="card-title">
+            Demanda <span>{demanda.nome}</span>
+          </h5>
+        </div>
+        <h6 className="card-subtitle mb-2 text-body-secondary">
+          Prioridade: <span className="fw-bolder">{demanda.prioridade}</span>
+        </h6>
+      </div>
+    </div>
+  );
+};
+
+
+const DemandaAberta = ({ demanda }) => {
+  if (!demanda) return <p className="text-muted">Nenhuma demanda selecionada.</p>;
 
   const opcoes = ["Peça 1", "Peça 2", "Peça 3"];
   return (
     <div className="container-fluid bg-lightgray">
       <h4 className="display-6 text-start mb-1">
-        Demanda <span id="nomeDemanda">Lorem Ipsum</span> - Nº{" "}
-        <span id="idDemanda">3</span>
+        Demanda <span>{demanda.nome}</span> - Nº <span>{demanda.id}</span>
       </h4>
       <p className="fs-5 text-start">
-        Gerado em: <span id="horaDemanda">22:22</span> -{" "}
-        <span id="dataDemanda">31/12/2025</span>
+        Gerado em: <span>{demanda.hora}</span> - <span>{demanda.data}</span>
       </p>
       <div className="mb-2 text-center row justify-content-center p-1">
         <div className="col-8 d-flex align-items-center bg-light rounded">
@@ -76,7 +96,7 @@ const DemandaAberta = () => {
                 ></textarea>
               </li>
               <li className="p-2">
-                <div class="form-check">
+                <div className="form-check">
                   <input
                     className="form-check-input"
                     type="checkbox"
@@ -133,27 +153,27 @@ const DemandaAberta = () => {
           >
             Encaminhar para:
           </label>
-          <div class="form-check form-check-inline">
+          <div className="form-check form-check-inline">
             <input
-              class="form-check-input"
+              className="form-check-input"
               type="radio"
               name="encaminharPara"
               id="estoque"
               value="entrada"
             />
-            <label class="form-check-label" for="encaminharPara">
+            <label className="form-check-label" for="encaminharPara">
               Estoque
             </label>
           </div>
-          <div class="form-check form-check-inline">
+          <div className="form-check form-check-inline">
             <input
-              class="form-check-input"
+              className="form-check-input"
               type="radio"
               name="encaminharPara"
               id="reciclagem"
               value="reciclagem"
             />
-            <label class="form-check-label" for="encaminharPara">
+            <label className="form-check-label" for="encaminharPara">
               Reciclagem
             </label>
           </div>
@@ -196,7 +216,7 @@ const AddPecasDefeituosas = () => {
               noOptionsMessage={() => "Peça não encontrada"}
               value={valor}
               onChange={(selectedOption) =>
-                handleChange(index, selectedOption?.value)
+                handleChange(index, selectedOption ? selectedOption.value : "")
               }
             />
           </div>
@@ -268,6 +288,26 @@ const FormCriarDemanda = () => {
 };
 
 export default function Producao() {
+  const [demandas] = useState([
+    {
+      id: 1,
+      nome: "Lorem Ipsum 1",
+      prioridade: "Alta",
+      descricao: "Problema com a peça 1",
+      data: "31/12/2025",
+      hora: "22:22"
+    },
+    {
+      id: 2,
+      nome: "Lorem Ipsum 2",
+      prioridade: "Normal",
+      descricao: "Problema com a peça 2",
+      data: "01/01/2026",
+      hora: "10:00"
+    },
+  ]);
+  const [demandaSelecionada, setDemandaSelecionada] = useState(null);
+  
   const [showCriarDemanda, setShowCriarDemanda] = useState(false);
 
   return (
@@ -296,11 +336,19 @@ export default function Producao() {
                       <GoPlus size={20} />
                     </button>
                   </div>
+                  <hr className="my-1 border-top border-secondary" />
                 </div>
               </div>
 
               <div className="card-body">
-                {/* Conteúdo adicional pode ser adicionado aqui */}
+                {/* items de demandas inseridos aqui */}
+                {demandas.map((d) => (
+                  <ItemDemanda
+                    key={d.id}
+                    demanda={d}
+                    onClick={setDemandaSelecionada}
+                  />
+                ))}
               </div>
             </div>
           </div>
@@ -336,7 +384,7 @@ export default function Producao() {
                     </div>
                   </div>
                 ) : (
-                  <DemandaAberta />
+                  <DemandaAberta demanda={demandaSelecionada} />
                 )}
               </div>
             </div>
