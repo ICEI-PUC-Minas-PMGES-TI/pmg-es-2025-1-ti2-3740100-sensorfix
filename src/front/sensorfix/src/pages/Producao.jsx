@@ -26,15 +26,23 @@ const ItemDemanda = ({ demanda, onClick }) => {
 };
 
 
-const DemandaAberta = ({ demanda }) => {
+const DemandaAberta = ({ demanda, onClose }) => {
   if (!demanda) return <p className="text-muted">Nenhuma demanda selecionada.</p>;
 
   const opcoes = ["Peça 1", "Peça 2", "Peça 3"];
   return (
     <div className="container-fluid bg-lightgray">
-      <h4 className="display-6 text-start mb-1">
-        Demanda <span>{demanda.nome}</span> - Nº <span>{demanda.id}</span>
-      </h4>
+      <div className="d-flex justify-content-between align-items-center">
+        <h4 className="display-6 text-start mb-1">
+          Demanda <span>{demanda.nome}</span> - Nº <span>{demanda.id}</span>
+        </h4>
+        <button
+          type="button"
+          className="btn-close"
+          aria-label="Close"
+          onClick={onClose}
+        ></button>
+      </div>
       <p className="fs-5 text-start">
         Gerado em: <span>{demanda.hora}</span> - <span>{demanda.data}</span>
       </p>
@@ -384,7 +392,7 @@ export default function Producao() {
                     </div>
                   </div>
                 ) : (
-                  <DemandaAberta demanda={demandaSelecionada} />
+                  <DemandaAberta demanda={demandaSelecionada} onClose={() => setDemandaSelecionada(null)} />
                 )}
               </div>
             </div>
